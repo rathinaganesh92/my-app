@@ -112,7 +112,7 @@ if(isset($_POST['Generatebill'])){
     	<div class="col-md-12">
     		<div class="panel panel-default">
     			<div class="panel-heading">
-    				<h3 class="panel-title"><strong>Bill Summary</strong></h3>
+    				<h3 class="panel-title"><strong>Bill Summary </strong></h3>(Click + to add more)
     			</div>
 				
     			<div class="panel-body">
@@ -128,51 +128,23 @@ if(isset($_POST['Generatebill'])){
     						</thead>
     						<tbody>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
-								<?php $itemList = 1; ?>
-    							<tr>
+								<?php for($itemList=1;$itemList<=20;$itemList++){
+								?>
+    							<tr class="item<?php echo $itemList; ?> list">
     								<td><input type="text" name="medicine<?php echo $itemList; ?>" id="medicine<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Medicine"></td>
     								<td class="text-center"><input type="number" id="price<?php echo $itemList; ?>" name="price<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Price"></td>
     								<td class="text-center"><input type="number" name="quantity<?php echo $itemList; ?>" id="quantity<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Quantity"></td>
     								<td class="text-right"><input type="text" name="total<?php echo $itemList; ?>" id="total<?php echo $itemList; ?>" class="form-control tally" required></td>
     							</tr>
-								<?php $itemList++ ?>
-    							<tr>
-    								<td><input type="text" name="medicine<?php echo $itemList; ?>" id="medicine<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Medicine"></td>
-    								<td class="text-center"><input type="number" id="price<?php echo $itemList; ?>" name="price<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Price"></td>
-    								<td class="text-center"><input type="number" name="quantity<?php echo $itemList; ?>" id="quantity<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Quantity"></td>
-    								<td class="text-right"><input type="text" name="total<?php echo $itemList; ?>" id="total<?php echo $itemList; ?>" class="form-control tally" required></td>
-    							</tr>
-								<?php $itemList++ ?>
-    							<tr>
-    								<td><input type="text" name="medicine<?php echo $itemList; ?>" id="medicine<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Medicine"></td>
-    								<td class="text-center"><input type="number" id="price<?php echo $itemList; ?>" name="price<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Price"></td>
-    								<td class="text-center"><input type="number" name="quantity<?php echo $itemList; ?>" id="quantity<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Quantity"></td>
-    								<td class="text-right"><input type="text" name="total<?php echo $itemList; ?>" id="total<?php echo $itemList; ?>" class="form-control tally" required></td>
-    							</tr>
-								<?php $itemList++ ?>
-    							<tr>
-    								<td><input type="text" name="medicine<?php echo $itemList; ?>" id="medicine<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Medicine"></td>
-    								<td class="text-center"><input type="number" id="price<?php echo $itemList; ?>" name="price<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Price"></td>
-    								<td class="text-center"><input type="number" name="quantity<?php echo $itemList; ?>" id="quantity<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Quantity"></td>
-    								<td class="text-right"><input type="text" name="total<?php echo $itemList; ?>" id="total<?php echo $itemList; ?>" class="form-control tally" required></td>
-    							</tr>
-								<?php $itemList++ ?>
-    							<tr>
-    								<td><input type="text" name="medicine<?php echo $itemList; ?>" id="medicine<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Medicine"></td>
-    								<td class="text-center"><input type="number" id="price<?php echo $itemList; ?>" name="price<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Price"></td>
-    								<td class="text-center"><input type="number" name="quantity<?php echo $itemList; ?>" id="quantity<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Quantity"></td>
-    								<td class="text-right"><input type="text" name="total<?php echo $itemList; ?>" id="total<?php echo $itemList; ?>" class="form-control tally" required></td>
-    							</tr>
-								<?php $itemList++ ?>
-    							<tr>
-    								<td><input type="text" name="medicine<?php echo $itemList; ?>" id="medicine<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Medicine"></td>
-    								<td class="text-center"><input type="number" id="price<?php echo $itemList; ?>" name="price<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Price"></td>
-    								<td class="text-center"><input type="number" name="quantity<?php echo $itemList; ?>" id="quantity<?php echo $itemList; ?>" class="form-control tally" placeholder="Enter Quantity"></td>
-    								<td class="text-right"><input type="text" name="total<?php echo $itemList; ?>" id="total<?php echo $itemList; ?>" class="form-control tally" required></td>
-    							</tr>
-								<?php $itemList++ ?>
+								<?php } ?>
     							
 								
+    							<tr>
+    								<td class="no-line"><span class="fa fa-plus fa-1x add"></span></td>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    							</tr>
     							<tr>
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
@@ -224,9 +196,16 @@ require_once('footer.php');
 ?>
 <script>
 		$(document).ready(function(){
+			$('.list').hide();
+			$('.item1').show();
+			var itemCount = 1;
+			$('.add').on('click',function(){
+				itemCount++;
+				$('.item'+itemCount).show();
+			});
 			$('.tally').on('click blur keyup',function(){
 				var i=0,tot=0,price=0,subtotal=0,taxamount=0,netamount=0;
-				for(i=1;i<7;i++){
+				for(i=1;i<=20;i++){
 					tot = +$('#quantity'+i).val() * +$('#price'+i).val();
 					$('#total'+i).val(tot);
 					subtotal = +subtotal + +tot;
@@ -239,45 +218,46 @@ require_once('footer.php');
 				}
 			});
 			
-  
-				
-			$('#medicine1,#medicine2,#medicine3,#medicine4,#medicine5,#medicine6').on('click change keyup',function(){
-				
-				var name = $(this).val();
-				var medid = $(this).attr('id');
-				$.ajax({
-					url:'generatebill.php',
-					type:'post',
-					async:false,
-					data:{type:'searchmedicine',name:name},
-					dataType:'json',
-					success:function(data){
-						$( "#"+medid ).autocomplete({
-						  source:data,
-						  autoFocus: true ,
-						  select: function(event, ui) {
-							$("#"+medid ).val(ui.item.label);
-							   var key = ui.item.value;
-								$.ajax({
-									url:'generatebill.php',
-									type:'post',
-									async:false,
-									data:{type:'fetchPrice',id:key},
-									dataType:'json',
-									success:function(res){
-										var pid = medid.slice(-1);
-										$('#price'+pid).val(res);
-									}
-								});
-							return false; // Prevent the widget from inserting the value.
-							},
-							focus: function(event, ui) {
-								$("#"+medid).val(ui.item.label);
+			for(var i=1;i<=20;i++){	
+				$('#medicine'+i).on('click change keyup',function(){
+					
+					var name = $(this).val();
+					var medid = $(this).attr('id');
+					$.ajax({
+						url:'generatebill.php',
+						type:'post',
+						async:false,
+						data:{type:'searchmedicine',name:name},
+						dataType:'json',
+						success:function(data){
+							$( "#"+medid ).autocomplete({
+							  source:data,
+							  autoFocus: true ,
+							  select: function(event, ui) {
+								$("#"+medid ).val(ui.item.label);
+								   var key = ui.item.value;
+									$.ajax({
+										url:'generatebill.php',
+										type:'post',
+										async:false,
+										data:{type:'fetchPrice',id:key},
+										dataType:'json',
+										success:function(res){
+											var pid = medid.slice(-1);
+											$('#price'+pid).val(res);
+										}
+									});
 								return false; // Prevent the widget from inserting the value.
-							}
-						});
-					}
-				})
-			});
+								},
+								focus: function(event, ui) {
+									$("#"+medid).val(ui.item.label);
+									return false; // Prevent the widget from inserting the value.
+								}
+							});
+						}
+					});
+				});
+				
+			}
 		});
 	</script>
