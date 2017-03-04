@@ -78,7 +78,7 @@ require_once('controllers/database.php');
                   <li><a href="Stock.php"><i class="fa fa-list-ul"></i> Stock List </a>
 
                 
-                    <li><a  href= "Sales.php"><i class="fa fa-money"></i> Sales </a>
+                    <li><a  href= "Sales.php"><i class="fa fa-money"></i> Update Stock </a>
 
                     
 
