@@ -27,6 +27,13 @@ require_once('controllers/database.php');
     <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -66,7 +73,7 @@ require_once('controllers/database.php');
 
                    <li><a href="search.php"><i class="fa fa-search"></i> Search Medicine </a>
 
-                   <li><a  href="Entry.php"><i class="fa fa-braille "></i> Stock Entry </a>
+          
                    
                   <li><a href="Stock.php"><i class="fa fa-list-ul"></i> Stock List </a>
 
@@ -89,7 +96,18 @@ require_once('controllers/database.php');
                     <li><a href= "patients.php"><i class="fa fa-wheelchair"></i> Patients </a>
 
                     <li><a href="registers.php"><i class="fa fa-users"></i> Register Patient </a>
-
+					
+					<?php $id = $_SESSION['user_id'];
+					 $Query = "SELECT type FROM users where id='$id'";
+                        $result = mysqli_query($conn,$Query);
+                        $row = mysqli_fetch_assoc($result);
+                        if($row['type'] == 1){
+							?>
+							
+					<li><a  href="Entry.php"><i class="fa fa-database "></i> Stock Entry </a>
+					<li><a  href="createuser.php"><i class="fa fa-user "></i> Create User </a>
+					
+						<?php }?>
                    
                 </ul>
               </div>

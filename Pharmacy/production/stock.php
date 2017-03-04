@@ -17,7 +17,7 @@ require_once('header.php');
                 <div class="x_content">
                    <div class="table-responsive">
                       <h2></h2>
-                      <table class="table table-striped jambo_table bulk_action">
+                      <table class="table table-striped table-bordered" id="datatable-buttons">
                         <thead>
                           <tr class="headings">
                             
@@ -65,6 +65,7 @@ require_once('header.php');
                         </tbody>
                       </table>
                     </div>
+			  
                 </div>
               </div>
             </div>

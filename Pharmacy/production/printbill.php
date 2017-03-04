@@ -119,6 +119,7 @@ require_once('header.php');
     			</div>
     		</div>
     	</div>
+		<button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
     </div>
 </div>
                   <div class="clearfix"></div>
