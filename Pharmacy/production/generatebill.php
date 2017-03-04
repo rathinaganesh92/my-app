@@ -35,7 +35,7 @@ if(isset($_POST['Generatebill'])){
   $Query="INSERT INTO bill(name, Date, Amount, taxamount, nettotal, Address) VALUES ('$name','$date','$subtotal','$taxamount','$netamount','$address')";
   mysqli_query($conn,$Query);
   $billid = mysqli_insert_id($conn);
-  for($i=1;$i<7;$i++){
+  for($i=1;$i<20;$i++){
 	  if(!(empty($_POST['medicine'.$i]))){
 		  $medicine = $_POST['medicine'.$i];
 		  $price = $_POST['price'.$i];
