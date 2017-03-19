@@ -61,7 +61,36 @@ require_once('header.php');
                         if($row['status'] == 'Available'){
                           $status = '<td style="color: green;">Available</td>';
                         }else{
-                           $status = '<td style="color: red;">Not Available</td>';
+                             $status = '<td data-toggle="modal" data-target=".bs-example-modal-lg'.$row['id'].'" style="color: red;">Not Available</td>';
+						$id = $row['id'];
+						$checkshopQuery = "SELECT id, name,address FROM othershops where medicine_id='$id'";
+                        $resultcheckshopQuery = mysqli_query($conn,$checkshopQuery);
+						$available = '';
+                        while($rowresultcheckshopQuery = mysqli_fetch_assoc($resultcheckshopQuery)){
+							$name = $rowresultcheckshopQuery['name'];
+							$address = $rowresultcheckshopQuery['address'];
+							$available .='<h4>'.$name.'</h4><p>'.$address.'</p>';
+						}
+						  echo '<div class="modal fade bs-example-modal-lg'.$row['id'].'" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+							  <div class="modal-content">
+
+								<div class="modal-header">
+								  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+								  </button>
+								  <h4 class="modal-title" id="myModalLabel">'.$row['name'].' </h4>
+								</div>
+								<div class="modal-body">
+								'.$available.'
+								</div>
+								<div class="modal-footer">
+								  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+
+							  </div>
+							</div>
+						  </div>';
+						  
                         }
                         echo "<tr>
                           <td>".$row['name']."</td>
